@@ -31,9 +31,32 @@
         .animate-float {
             animation: float 6s ease-in-out infinite;
         }
+
+        @keyframes drawCheckmark {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        .path-checkmark {
+            animation: drawCheckmark 0.6s ease-in-out forwards 0.2s;
+        }
+        
+        @keyframes popIn {
+            0% {
+                transform: scale(0.92);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        .animate-success {
+            animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
     </style>
 </head>
-<body class="text-[#f1efe3] flex items-center justify-center min-h-screen p-6 overflow-hidden relative selection:bg-[#d2be9d] selection:text-[#4b493d]">
+<body class="text-[#f1efe3] flex items-center justify-center min-h-screen p-6 relative selection:bg-[#d2be9d] selection:text-[#4b493d] py-12 md:py-24 overflow-y-auto">
     
     <!-- Background subtle ambient lights -->
     <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-[#f1efe3]/5 rounded-full blur-3xl pointer-events-none"></div>
@@ -55,9 +78,86 @@
             Em breve
         </p>
         <div class="h-[1px] w-12 bg-[#d2be9d]/40 my-3"></div>
-        <p class="text-sm md:text-base text-[#f1efe3]/80 max-w-xs font-light leading-relaxed">
+        <p class="text-sm md:text-base text-[#f1efe3]/80 max-w-xs font-light leading-relaxed mb-6">
             Reserva Ecológica • Iguape - SP
         </p>
+
+        <!-- Contact Form Card -->
+        <div id="contact-card" class="w-full max-w-md p-6 rounded-2xl border border-white/10 bg-[#f1efe3]/5 backdrop-blur-md shadow-2xl transition-all duration-500 ease-in-out">
+            <h2 class="text-base font-semibold text-[#f1efe3] mb-4">Fique por dentro das novidades</h2>
+            <form id="contact-form" class="space-y-4 text-left">
+                <div>
+                    <label for="name" class="block text-[10px] font-medium text-[#d2be9d] uppercase tracking-wider mb-1">Nome</label>
+                    <input type="text" id="name" required class="w-full px-4 py-2.5 rounded-lg bg-black/25 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-[#d2be9d] focus:ring-1 focus:ring-[#d2be9d] transition-all text-xs" placeholder="Seu nome completo">
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="email" class="block text-[10px] font-medium text-[#d2be9d] uppercase tracking-wider mb-1">E-mail</label>
+                        <input type="email" id="email" required class="w-full px-4 py-2.5 rounded-lg bg-black/25 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-[#d2be9d] focus:ring-1 focus:ring-[#d2be9d] transition-all text-xs" placeholder="seu@email.com">
+                    </div>
+                    <div>
+                        <label for="whatsapp" class="block text-[10px] font-medium text-[#d2be9d] uppercase tracking-wider mb-1">WhatsApp (Opcional)</label>
+                        <input type="tel" id="whatsapp" class="w-full px-4 py-2.5 rounded-lg bg-black/25 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-[#d2be9d] focus:ring-1 focus:ring-[#d2be9d] transition-all text-xs" placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="message" class="block text-[10px] font-medium text-[#d2be9d] uppercase tracking-wider mb-1">Mensagem (Opcional)</label>
+                    <textarea id="message" rows="2" class="w-full px-4 py-2 rounded-lg bg-black/25 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-[#d2be9d] focus:ring-1 focus:ring-[#d2be9d] transition-all text-xs resize-none" placeholder="Sua mensagem ou sugestão..."></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-2.5 px-4 rounded-lg bg-[#d2be9d] hover:bg-[#c4ad8d] text-[#4b493d] font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-[#d2be9d]/20 active:scale-[0.98] flex items-center justify-center space-x-2">
+                    <span>Enviar Contato</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                </button>
+            </form>
+        </div>
     </div>
+
+    <!-- Form Handler Script -->
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const message = document.getElementById('message').value;
+            
+            // Save to localStorage (Simulation)
+            const contactData = { name, email, whatsapp, message, date: new Date().toISOString() };
+            const submissions = JSON.parse(localStorage.getItem('jureia_submissions') || '[]');
+            submissions.push(contactData);
+            localStorage.setItem('jureia_submissions', JSON.stringify(submissions));
+
+            // Success Transition Animation
+            const card = document.getElementById('contact-card');
+            card.classList.add('opacity-0', 'scale-95');
+            
+            setTimeout(() => {
+                card.innerHTML = `
+                    <div class="flex flex-col items-center justify-center py-6 text-center space-y-4 animate-success">
+                        <div class="w-14 h-14 bg-[#d2be9d]/20 rounded-full flex items-center justify-center border border-[#d2be9d]/40">
+                            <svg class="w-7 h-7 text-[#d2be9d]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" stroke-dasharray="50" stroke-dashoffset="50" class="path-checkmark"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-[#f1efe3]">Obrigado, ${name.split(' ')[0]}!</h3>
+                        <p class="text-xs text-[#f1efe3]/70 max-w-xs leading-relaxed">
+                            Seus dados foram salvos. Avisaremos você assim que o portal da Reserva Ecológica Da Juréia estiver online!
+                        </p>
+                        <button onclick="window.location.reload()" class="mt-2 text-[10px] font-semibold uppercase tracking-wider text-[#d2be9d] hover:text-[#f1efe3] transition-colors">
+                            Enviar outra mensagem
+                        </button>
+                    </div>
+                `;
+                card.classList.remove('opacity-0', 'scale-95');
+                card.classList.add('opacity-100', 'scale-100');
+            }, 400);
+        });
+    </script>
 </body>
 </html>
