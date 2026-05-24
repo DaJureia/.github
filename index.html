@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da Juréia - Reserva Ecológica</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Da Juréia - Reserva Ecológica, São Paulo. Em breve um novo espaço para conexão com a natureza e sustentabilidade.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://dajureia.com.br/">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #6a665a 0%, #4b493d 100%);
+            background-attachment: fixed;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-8px) scale(1.015);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="text-[#f1efe3] flex items-center justify-center min-h-screen p-6 overflow-hidden relative selection:bg-[#d2be9d] selection:text-[#4b493d]">
+    
+    <!-- Background subtle ambient lights -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-[#f1efe3]/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#d2be9d]/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="text-center z-10 max-w-lg mx-auto flex flex-col items-center justify-center">
+        <!-- Logo Container with floating animation and interactive hover -->
+        <div class="relative animate-float transition-all duration-700 ease-out hover:scale-105 active:scale-95 cursor-pointer mb-8">
+            <!-- Glow background -->
+            <div class="absolute inset-0 bg-[#f1efe3]/10 rounded-full blur-xl scale-90 opacity-40 transition-opacity duration-500 hover:opacity-80"></div>
+            <!-- Logo Image -->
+            <img id="main-logo" src="logo.png" alt="Logo Da Juréia" class="relative w-64 h-auto md:w-80 drop-shadow-[0_15px_30px_rgba(0,0,0,0.25)]">
+        </div>
+
+        <h1 class="sr-only">Da Juréia - Reserva Ecológica</h1>
+
+        <!-- Subtitle and details -->
+        <p class="text-xs md:text-sm tracking-[0.3em] uppercase text-[#d2be9d] font-semibold mb-2 animate-pulse">
+            Em breve
+        </p>
+        <div class="h-[1px] w-12 bg-[#d2be9d]/40 my-3"></div>
+        <p class="text-sm md:text-base text-[#f1efe3]/80 max-w-xs font-light leading-relaxed">
+            Reserva Ecológica • Peruíbe - SP
+        </p>
+    </div>
+</body>
+</html>
